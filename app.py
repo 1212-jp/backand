@@ -8,6 +8,14 @@ CORS(app)
 
 API_KEY = os.environ.get("NEWSDATA_API_KEY")
 
+@app.route("/")
+def home():
+    return {
+        "status": "ok",
+        "message": "Techtonic Labs Backend Running",
+        "news_endpoint": "/news"
+    }
+
 @app.route("/news")
 def news():
     category = request.args.get("category", "technology")
@@ -21,8 +29,5 @@ def news():
             "category": category
         },
         timeout=30
-    )
+)                
     return jsonify(response.json())
-
-if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000)
